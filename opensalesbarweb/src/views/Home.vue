@@ -131,4 +131,5 @@ export default {
   #inHomeContentBox {
     color: red;
   }
+
 </style>

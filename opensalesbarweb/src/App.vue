@@ -1,33 +1,45 @@
 <template>
   <div>
     <global-header/>
-    <div class="contents">
+    <div>
       <router-view/>
     </div>
   </div>
 </template>
 
 <style>
+
+
+@charset "utf-8";
+/* CSS Document */
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+	color: inherit;
+  width: 100%; /*1349px*/
+	color: #fff;
+  font-size: 100%;
+  background: #000;
+  font-family: "メイリオ", "小塚ゴシック Pr6N B", sans-serif;
+
 }
 
-#nav {
-  padding: 30px;
+ul {
+    list-style: none;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+@media screen and (max-width: 768px) {
+  html, body {
+    font-size: 0.9em; /*14.4px*/
+  }
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+img {
+  max-width: 100%;
 }
+
+h1 {
+  font-size: 2em;
+}
+
 </style>
 
 <script>

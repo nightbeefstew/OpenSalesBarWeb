@@ -54,6 +54,7 @@
   position: absolute;
   top: 0;
   left: 0;
+
 }
 
 .gNavi/*widthは1309px*/ {
@@ -66,6 +67,7 @@
 	padding: 1.25em;/*20px*/
 	text-align: center;
 /*  box-sizing: border-box;*/
+  margin: 0;
 }
 
 .gNavi >li {
