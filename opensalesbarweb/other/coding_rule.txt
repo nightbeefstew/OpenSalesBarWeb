@@ -1,0 +1,15 @@
+コーディング？ルール
+
+
+■<template></template>の中身は
+１つの大きな<div></div>でラップし、
+ファイル名と同じidを付ける
+適用範囲：viewsとcomponentsの中の.vueファイル
+（App.vueは除く）
+
+例. 
+	<template>
+	  <div id="about">
+	    <h1>This is an about page</h1>
+	  </div>
+	</template>
