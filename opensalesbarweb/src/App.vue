@@ -1,9 +1,10 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <global-header/>
+    <div class="contents">
+      <router-view/>
+    </div>
   </div>
-  <router-view/>
 </template>
 
 <style>
@@ -28,3 +29,12 @@
   color: #42b983;
 }
 </style>
+
+<script>
+  import GlobalHeader from'./components/GlobalHeader'
+  export default { 
+      components: {
+      GlobalHeader,
+    }
+  }
+</script>
