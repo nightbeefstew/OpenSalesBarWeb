@@ -4,6 +4,7 @@
     <div>
       <router-view/>
     </div>
+    <Footer/>
   </div>
 </template>
 
@@ -44,9 +45,10 @@ h1 {
 
 <script>
   import GlobalHeader from'@/components/GlobalHeader'
+  import Footer from '@/components/Footer'
   export default { 
       components: {
-      GlobalHeader,
+      GlobalHeader, Footer,
     }
   }
 </script>
