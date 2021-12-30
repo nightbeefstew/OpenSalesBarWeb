@@ -15,7 +15,7 @@
         <li>
            <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
         </li>
-        <li>home</li>
+        <li>Home</li>
         <li>News</li>
         <li class="pulldown">
           Menu
@@ -54,6 +54,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .gNavi/*widthは1309px*/ {
