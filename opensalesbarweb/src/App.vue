@@ -19,7 +19,6 @@
   font-size: 100%;
   background: #000;
   font-family: "メイリオ", "小塚ゴシック Pr6N B", sans-serif;
-
 }
 
 ul {

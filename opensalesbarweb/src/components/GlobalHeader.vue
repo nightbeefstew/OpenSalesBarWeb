@@ -51,10 +51,9 @@
 #GlobalHeader {
   width: 100%;
   background: rgba(0, 0, 0, .5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-
 }
 
 .gNavi/*widthは1309px*/ {
@@ -62,7 +61,7 @@
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-/*  background: rgba(0, 0, 0, .5);*/
+  background: rgba(0, 0, 0, .5);
   height: 10em; /*160px*/
 	padding: 1.25em;/*20px*/
 	text-align: center;
