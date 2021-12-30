@@ -13,3 +13,7 @@
 	    <h1>This is an about page</h1>
 	  </div>
 	</template>
+
+■パス指定における@エイリアス
+メモ：@はsrcフォルダを指す
+参考：https://www.webdevqa.jp.net/ja/javascript/webpack%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9Fvuejs%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A7at%EF%BC%88-%27%27%EF%BC%89%E3%82%B5%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%83%91%E3%82%B9%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9Fes6%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88/831590937/

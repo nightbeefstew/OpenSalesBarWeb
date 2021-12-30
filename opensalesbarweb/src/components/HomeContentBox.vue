@@ -1,7 +1,6 @@
 <template>
   <section id="homeContentBox">
     <slot></slot>
-
   </section>
 </template>
 
@@ -16,5 +15,11 @@ export default {
 <style scoped>
 #homeContentBox {
   border: solid;
+
 }
+
+.title {
+  font-size: 2em;
+}
+
 </style>
