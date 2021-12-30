@@ -12,12 +12,13 @@
 
 @charset "utf-8";
 /* CSS Document */
+
 #app {
 	color: inherit;
   width: 100%; /*1349px*/
 	color: #fff;
   font-size: 100%;
-  background: #000;
+  background-color: #000;
   font-family: "メイリオ", "小塚ゴシック Pr6N B", sans-serif;
 
 }
@@ -43,7 +44,7 @@ h1 {
 </style>
 
 <script>
-  import GlobalHeader from'./components/GlobalHeader'
+  import GlobalHeader from'@/components/GlobalHeader'
   export default { 
       components: {
       GlobalHeader,

@@ -2,9 +2,6 @@
   <div id="home">
     <main class="contents">
       <div class="mainVisual">
-        <div class="logosp">
-          <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
-        </div>
     </div>
 
     <HomeContentBox class="newsTop">
@@ -34,7 +31,12 @@
       </div>
     </HomeContentBox>
 
-    <HomeContentBox class="menuTop"><h2>Menu</h2></HomeContentBox>
+    <HomeContentBox class="menuTop">
+      <template v-slot:title>
+        menu
+      </template>
+      
+    </HomeContentBox>
     <HomeContentBox class="planTop"><h2>Plan</h2></HomeContentBox>
     <HomeContentBox class="photoTop"><h2>Photo</h2></HomeContentBox>
 
