@@ -20,7 +20,7 @@
   width: 50%;
   padding-left: 10em;
   margin: 0 auto;
-  background: url("/public/images/logo.png");
+  background: url("~@/assets/images/logo.png");
   text-align: center;
 }
 
