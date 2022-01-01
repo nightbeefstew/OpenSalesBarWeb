@@ -23,6 +23,22 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "news" */ '../views/News.vue')
   },
+  {
+    path: '/menu',
+    name: 'Menu',
+    // route level code-splitting
+    // this generates a separate chunk (menu.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "menu" */ '../views/Menu.vue')
+  },
+  {
+    path: '/photo',
+    name: 'Photo',
+    // route level code-splitting
+    // this generates a separate chunk (photo.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "photo" */ '../views/Photo.vue')
+  },
 
 ]
 

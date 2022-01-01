@@ -12,22 +12,24 @@
       <router-link to="/English">English</router-link> -->
     <nav>
       <ul class="gNavi">
-        <li>
-           <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
+        <li class="gNaviLogo">
+           <router-link to="/">
+            <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
+           </router-link>
         </li>
-        <li>Home</li>
+        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/News">News</router-link></li>
         <li class="pulldown">
-          Menu
+          <router-link to="/Menu">Menu</router-link>
           <ul>
             <li>Drink</li>
             <li>Food</li>
             <li>Plan</li>
           </ul>
         </li>
-        <li>Photo</li>
+        <li><router-link to="/Photo">Photo</router-link></li>
         <li class="pulldown">
-          About
+          <router-link to="/About">About</router-link>
           <ul>
             <li>Profile</li>
             <li>Recruit</li>
@@ -70,6 +72,12 @@
   margin: 0;
 }
 
+/* gNavi 以下の全ての文字色を白統一、リンクの下線を非表示*/
+.gNavi * {
+  color: #fff;
+  text-decoration: none;
+}
+
 .gNavi >li {
   width: 20%;
   height: 30px;
@@ -80,7 +88,7 @@
  /* border: 1px solid #fff; */
 }
 
-.gNavi >li:first-child {
+.gNaviLogo:first-child {
   height: 100%;
   background: url("~@/assets/images/logo.png") no-repeat center/cover;
   margin-top: 0.5em;
