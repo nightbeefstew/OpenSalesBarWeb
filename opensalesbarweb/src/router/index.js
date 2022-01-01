@@ -39,6 +39,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "photo" */ '../views/Photo.vue')
   },
+  {
+    path: '/access',
+    name: 'Access',
+    // route level code-splitting
+    // this generates a separate chunk (access.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "access" */ '../views/Access.vue')
+  },
 
 ]
 

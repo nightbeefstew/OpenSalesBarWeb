@@ -36,6 +36,7 @@
             <li>Contact</li>
           </ul>
         </li>
+        <li><router-link to="/Access">Access</router-link></li>
         <li>
             <ul>
                 <li>
