@@ -3,7 +3,7 @@
     <footer class="footer">
         <p>Open Sales Bar オープンセールスバー新橋（Bar）</p>
         <p>東京都東京都港区新橋3-18-3 三青ビル2階</p>
-        <p>TEL 0364356977</p>
+        <p>TEL: 03-6435-6977</p>
         <p><small>Open Sales Bar&copy;All rights are reserved.</small></p>
     </footer>
   </div>
@@ -12,7 +12,7 @@
 
 
 
-<style>
+<style scoped>
 
 .footer {
   display: flex;

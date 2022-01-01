@@ -31,12 +31,7 @@
         </div>
       </HomeContentBox>
 
-      <HomeContentBox class="menuTop">
-        <template v-slot:title>
-          menu
-        </template>
-        
-      </HomeContentBox>
+      <HomeContentBox class="menuTop"><h2>Menu</h2></HomeContentBox>
       <HomeContentBox class="planTop"><h2>Plan</h2></HomeContentBox>
       <HomeContentBox class="photoTop"><h2>Photo</h2></HomeContentBox>
 
