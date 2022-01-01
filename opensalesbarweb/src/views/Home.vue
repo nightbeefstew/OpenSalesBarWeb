@@ -1,8 +1,7 @@
 <template>
   <div id="home">
     <main class="contents">
-      <div class="mainVisual">
-      </div>
+      <div class="mainVisual"></div>
 
       <HomeContentBox class="newsTop">
         <h2>News</h2>
@@ -133,7 +132,7 @@ export default {
     display: block;
     position: relative;
     height: 100vh;
-    margin: 0 0 10em 0;
+    margin: -180px 0 10em 0;
     width: 100%;
     background: url("~@/assets/images/top1.jpg") no-repeat center/cover;
   }

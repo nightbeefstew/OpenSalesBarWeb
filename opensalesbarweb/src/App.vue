@@ -1,7 +1,7 @@
 <template>
   <div>
     <global-header/>
-    <div>
+    <div class="page">
       <router-view/>
     </div>
     <Footer/>
@@ -25,6 +25,10 @@
 
 ul {
     list-style: none;
+}
+
+.page {
+  padding: 180px 0 0 0;
 }
 
 @media screen and (max-width: 768px) {

@@ -16,7 +16,7 @@
            <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
         </li>
         <li>Home</li>
-        <li>News</li>
+        <li><router-link to="/News">News</router-link></li>
         <li class="pulldown">
           Menu
           <ul>
@@ -82,11 +82,12 @@
 
 .gNavi >li:first-child {
   height: 100%;
-  background: #000;
+  background: url("~@/assets/images/logo.png") no-repeat center/cover;
   margin-top: 0.5em;
   text-align: center;
   border: 1px #000 solid;
   width: 12.5%;
+
 }
 
 .gNavi li:first-child p {
