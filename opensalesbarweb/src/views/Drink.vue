@@ -173,7 +173,7 @@
 }
 
 #drink h2 {
-  padding-top: 7em; /*グローバルヘッダーと被らないように*/
+  padding-top: 10em; /*グローバルヘッダーと被らないように*/
 }
 
 #drink figure {

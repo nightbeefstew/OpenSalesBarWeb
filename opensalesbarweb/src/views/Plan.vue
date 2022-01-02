@@ -77,7 +77,7 @@
 }
 
 #plan h2 {
-  padding-top: 7em;
+  padding-top: 10em;
 }
 
 #plan figure {

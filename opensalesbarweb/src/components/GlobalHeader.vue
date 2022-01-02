@@ -1,4 +1,5 @@
 <template>
+  <header>
   <div id="GlobalHeader">
    <!-- <div class="GlobalHeaderNav">
      <router-link to="/"></router-link>
@@ -54,6 +55,7 @@
     </nav>
     <!-- </div> -->
   </div>
+  </header>
 </template>
 
 <style>
