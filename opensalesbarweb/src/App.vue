@@ -15,12 +15,16 @@
 /* CSS Document */
 
 #app {
-	color: inherit;
   width: 100%; /*1349px*/
 	color: #fff;
   font-size: 100%;
   background-color: #000;
   font-family: "メイリオ", "小塚ゴシック Pr6N B", sans-serif;
+}
+
+a {
+	color: inherit;
+  text-decoration:none;
 }
 
 ul {
