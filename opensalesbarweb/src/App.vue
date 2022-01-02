@@ -28,7 +28,7 @@ ul {
 }
 
 .view {
-  padding: 180px 20px 20px 20px;
+  padding: 14em 20px 20px 20px;
 }
 
 @media screen and (max-width: 768px) {
