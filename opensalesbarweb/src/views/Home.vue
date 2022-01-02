@@ -132,8 +132,8 @@ export default {
     display: block;
     position: relative;
     height: 100vh;
-    margin: -180px 0 10em 0;
-    width: 100%;
+    margin: -180px 0px 10em -20px;
+    width: 100vw;
     background: url("~@/assets/images/top1.jpg") no-repeat center/cover;
   }
 

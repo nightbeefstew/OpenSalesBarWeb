@@ -10,12 +10,18 @@
       <router-link to="/Access">Access</router-link> 
       <router-link to="/">Instagram</router-link> 
       <router-link to="/English">English</router-link> -->
-    <nav>
+    <nav class="gNaviWrapper">
       <ul class="gNavi">
-        <li class="gNaviLogo">
-           <router-link to="/">
-            <p>新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
-           </router-link>
+        <li>
+          <div class="gNaviLogoGroup">
+            <p class="gNaviLogoDesc">新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
+            <!-- <img class="gNaviLogoImg" src="~@/assets/images/logo.png"> -->
+            
+       <router-link class="gNaviLogoImg" to="/">
+              <img src="~@/assets/images/logo.png">
+            </router-link>
+            
+          </div>
         </li>
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/News">News</router-link></li>
@@ -53,6 +59,7 @@
 <style>
 #GlobalHeader {
   width: 100%;
+  height: 14em; /*160px*/
   background: rgba(0, 0, 0, .5);
   position: fixed;
   top: 0;
@@ -60,17 +67,19 @@
   z-index: 1;
 }
 
+.gNaviWrapper {
+  height: 100%;
+}
+
 .gNavi/*widthは1309px*/ {
-  font-size: 1em;/*16px*/
+  height: 100%;
+  font-size: 1.1em;/*16px*/
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  background: rgba(0, 0, 0, .5);
-  height: 10em; /*160px*/
-	padding: 1.25em;/*20px*/
-	text-align: center;
-/*  box-sizing: border-box;*/
+  align-items: center;
   margin: 0;
+  padding: 0 20px 0 20px;
 }
 
 /* gNavi 以下の全ての文字色を白統一、リンクの下線を非表示*/
@@ -80,34 +89,43 @@
 }
 
 .gNavi >li {
-  width: 20%;
-  height: 30px;
+  height: 100%;
   font-size: 1.1em;/*18px*/
+  display: flex;
+  align-items: center;
   text-align: center;
   position: relative;
-  margin-top: 3em;/*54px*/
  /* border: 1px solid #fff; */
 }
 
-.gNaviLogo:first-child {
+.gNaviLogoGroup {
   height: 100%;
-  background: url("~@/assets/images/logo.png") no-repeat center/cover;
-  margin-top: 0.5em;
-  text-align: center;
-  border: 1px #000 solid;
-  width: 12.5%;
-
+  padding: 5% 0 5% 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.gNavi li:first-child p {
-  font-size: 0.5em;/*8px*/
-  margin-top: -2em;
+.gNaviLogoImg {
+  display: block;
+  max-height: 70%;
+}
+
+.gNaviLogoImg img {
+  max-height: 100%;
+}
+
+.gNaviLogoDesc {
+  max-height: 20%;
+  margin: 0;
+  font-size: 0.5em;
 }
 
 .gNavi > li:last-child {
   text-align: center;
   margin-top: 1.66666666em;/*30px*/
-  width: 20%; /*120px ～ 220.6011235955056px*/
+
   display: flex;
 }
 
