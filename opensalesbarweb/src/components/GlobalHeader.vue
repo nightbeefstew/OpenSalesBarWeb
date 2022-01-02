@@ -1,27 +1,14 @@
 <template>
   <header>
   <div id="GlobalHeader">
-   <!-- <div class="GlobalHeaderNav">
-     <router-link to="/"></router-link>
-      <router-link to="/">Home</router-link>
-      <router-link to="/News">News</router-link>
-      <router-link to="/Menu">Menu</router-link>
-      <router-link to="/Photo">Photo</router-link>
-      <router-link to="/About">About</router-link>
-      <router-link to="/Access">Access</router-link> 
-      <router-link to="/">Instagram</router-link> 
-      <router-link to="/English">English</router-link> -->
     <nav class="gNaviWrapper">
       <ul class="gNavi">
         <li>
           <div class="gNaviLogoGroup">
-            <p class="gNaviLogoDesc">新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>
-            <!-- <img class="gNaviLogoImg" src="~@/assets/images/logo.png"> -->
-            
-       <router-link class="gNaviLogoImg" to="/">
+            <p class="gNaviLogoDesc">新橋駅から徒歩２分<br>気軽に立ち寄れるBAR</p>           
+            <router-link class="gNaviLogoImg" to="/">
               <img src="~@/assets/images/logo.png">
             </router-link>
-            
           </div>
         </li>
         <li><router-link to="/">Home</router-link></li>
@@ -45,15 +32,16 @@
         </li>
         <li><router-link to="/Access">Access</router-link></li>
         <li>
+          <div class="gNaviRightGroup">
             <ul>
-                <li>
-                </li>
-                <li>English</li>
+              <li>
+              </li>
+              <li>English</li>
             </ul>
-        </li><!--.headerRight-->
+          </div>
+        </li>
       </ul>
     </nav>
-    <!-- </div> -->
   </div>
   </header>
 </template>
@@ -61,7 +49,7 @@
 <style>
 #GlobalHeader {
   width: 100%;
-  height: 14em; /*160px*/
+  height: 14em;
   background: rgba(0, 0, 0, .5);
   position: fixed;
   top: 0;
@@ -77,27 +65,24 @@
   height: 100%;
   font-size: 1.1em;/*16px*/
   display: flex;
-  flex-flow: row;
   justify-content: space-between;
   align-items: center;
   margin: 0;
-  padding: 0 20px 0 20px;
+  padding: 0 2% 0 2%;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
-/* gNavi 以下の全ての文字色を白統一、リンクの下線を非表示*/
-.gNavi * {
-  color: #fff;
-  text-decoration: none;
-}
 
 .gNavi >li {
+  flex-shrink: 0;
+  flex-grow: 0;
   height: 100%;
   font-size: 1.1em;/*18px*/
   display: flex;
   align-items: center;
   text-align: center;
-  position: relative;
- /* border: 1px solid #fff; */
+  /* border: 1px solid #fff; */
 }
 
 .gNaviLogoGroup {
@@ -110,12 +95,10 @@
 }
 
 .gNaviLogoImg {
-  display: block;
-  max-height: 70%;
-}
-
-.gNaviLogoImg img {
-  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  
 }
 
 .gNaviLogoDesc {
@@ -124,19 +107,21 @@
   font-size: 0.5em;
 }
 
-.gNavi > li:last-child {
-  text-align: center;
-  margin-top: 1.66666666em;/*30px*/
-
+.gNaviRightGroup {
+  height: 100%;
+  padding: 5% 0 5% 0;
   display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.gNavi > li:last-child li:first-child {
+.gNaviRightGroup li:first-child {
     border: 1px solid #000 ;
     height: 3em;
 }
 
-.gNavi > li:last-child li:last-child {
+.gNaviRightGroup li:last-child {
   background: rgba(170,170,170,0.50);
   width: 100%;
   margin: 1.1em auto 0;
