@@ -1,7 +1,7 @@
 <template>
-  <div id="drink">
+  <div id="food">
 		<div class="topImage"></div>
-    <h1>Drink</h1>
+    <h1>Food</h1>
     <section class="container">
       <main id="contents">  
         <figure>
@@ -109,7 +109,7 @@
           </table>
         </aside>
       </section><!--.container-->
-  </div><!--#drink-->
+  </div><!--#food-->
 </template>
 
 
@@ -119,7 +119,7 @@
 
 <style scoped>
 
-#drink {
+#food {
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -136,63 +136,63 @@
   z-index: 9;
 }
 
-#drink main {
+#food main {
   padding-top: 0;
 }
 
-#drink h2 {
+#food h2 {
   padding-top: 7em;
 }
 
-#drink figure {
+#food figure {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 0 auto;
 }
 
-#drink figure .imglist {
+#food figure .imglist {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-#drink figure .imglist div {
+#food figure .imglist div {
   width: 200px;
   height: 300px;
   margin: 50px 5px;
   background: url("~@/assets/images/azuki.jpg") no-repeat; 
 }
 
-#drink figure .imglist div figcaption {
+#food figure .imglist div figcaption {
   padding-top: 300px;  
 }
 
-#drink figure .imglist .imgnaka1 {
+#food figure .imglist .imgnaka1 {
   background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
 }
 
-#drink figure .imglist .imgnaka2 {
+#food figure .imglist .imgnaka2 {
   background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
 }
 
-#drink figure .imglist .imgnaka3 {
+#food figure .imglist .imgnaka3 {
   background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
 }
 
 aside {
   position: fixed;
   top: 50%;
-  left: 10px;
+  left: 2em;
 }
 
 @media screen and (max-width: 768px) {
   
-  #drink {
+  #food {
     padding-top: 100px;
   }
   
-  #drink figure {
+  #food figure {
     width: 100%;
   }
 

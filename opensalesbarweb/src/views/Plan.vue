@@ -124,7 +124,7 @@
 aside {
   position: fixed;
   top: 50%;
-  left: 10px;
+  left: 2em;
 }
 
 @media screen and (max-width: 768px) {
