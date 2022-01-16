@@ -4,31 +4,46 @@
     <h1>Drink</h1>
     <section class="container">
       <main id="contents">  
-        <figure>
-          <h2 id="_softdrink">Soft Drink</h2>
-          <div class="imglist">
-            <div class="content" v-for="content in contents" :key="content.id"> 
-              <h3 class="name">{{ content.name }}</h3>
-              <img v-bind:src=content.image.url>
-              <figcaption class="description">{{ content.description }}</figcaption>
-              <p><span class="price">￥{{ content.price }}</span></p>
+        <div class="figure">
+          <section>
+            <h2 id="_cocktails">Cocktails</h2>
+            <div class="imglist">
+              <div class="content" v-for="content in contents" :key="content.id"> 
+                <h3 class="name">{{ content.name }}</h3>
+                <img v-bind:src=content.image.url>
+                <div class="description">{{ content.description }}</div>
+                <p><span class="price">￥{{ content.price }}</span></p>
+              </div><!--.content-->
             </div>
-            <div class="content" v-for="content in contents" :key="content.id"> 
-              <h3 class="name">{{ content.name }}</h3>
-              <img v-bind:src=content.image.url>
-              <figcaption class="description">{{ content.description }}</figcaption>
-              <p><span class="price">￥{{ content.price }}</span></p>
-            </div>
-            <div class="content" v-for="content in contents" :key="content.id"> 
-              <h3 class="name">{{ content.name }}</h3>
-              <img v-bind:src=content.image.url>
-              <figcaption class="description">{{ content.description }}</figcaption>
-              <p><span class="price">￥{{ content.price }}</span></p>
-            </div>
+          </section>
 
-          </div>
+          <section>
+            <h2 id="_cocktails"></h2>
+            <div class="imglist">
+              <div class="content" v-for="content in contents" :key="content.id"> 
+                <h3 class="name">{{ content.name }}</h3>
+                <img v-bind:src=content.image.url>
+                <div class="description">{{ content.description }}</div>
+                <p><span class="price">￥{{ content.price }}</span></p>
+              </div><!--.content-->
+            </div>
+          </section>
 
-        </figure>
+           <!-- <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+-->
+        </div><!--.figure-->
       </main>
         <aside class="sidebar">
           <table>
@@ -158,7 +173,7 @@ h3 {
   background: #ddd;
 }
 
-figure {
+.figure {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -169,12 +184,16 @@ figure {
 .imglist /*各列に画像が3つ並ぶように*/ {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  background: #bbb;
+  background: #888;
+  flex-wrap: wrap;
 }
 
 .content /*imgnakaに対応*/ {
-  margin: 50px 5px;
+  margin: 0;
+  padding: 1em;
+  width: 33.3333%;
+  min-height: 100%;
+  border: 5px solid #000;
 }
 
 .content img {
@@ -182,8 +201,7 @@ figure {
   height: 300px;
 }
 
-figcaption {
-  width: 80%;
+.description {
   margin: 1em auto 0;
   background: #ddd;
 }
@@ -209,7 +227,7 @@ aside table td {
     padding-top: 100px;
   }
   
-  figure {
+  .figure {
     width: 100%;
   }
 
