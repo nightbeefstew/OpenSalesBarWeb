@@ -14,20 +14,24 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/News">News</router-link></li>
         <li class="pulldown">
-          <router-link to="/Menu">Menu</router-link>
+          <label for="menugNavi">Menu</label>
+          <input type="checkbox" id="menugNavi">
           <ul>
-            <li>Drink</li>
-            <li>Food</li>
-            <li>Plan</li>
+            <li><router-link to="/drink">Drink</router-link></li>
+            <li><router-link to="/food">Food</router-link></li>
+            <li><router-link to="/plan">Plan</router-link></li>
           </ul>
         </li>
         <li><router-link to="/Photo">Photo</router-link></li>
         <li class="pulldown">
-          <router-link to="/About">About</router-link>
+          
+          
+          <label for="aboutUsgNavi">About</label>
+          <input type="checkbox" id="aboutUsgNavi">
           <ul>
-            <li>Profile</li>
-            <li>Recruit</li>
-            <li>Contact</li>
+            <li><router-link to="/profile">Profile</router-link></li>
+            <li><router-link to="/recruit">Recruit</router-link></li>
+            <li><router-link to="/contact">Contact</router-link></li>
           </ul>
         </li>
         <li><router-link to="/Access">Access</router-link></li>
@@ -46,7 +50,7 @@
   </header>
 </template>
 
-<style>
+<style scoped>
 #GlobalHeader {
   width: 100%;
   height: 14em;
@@ -71,6 +75,7 @@
   padding: 0 2% 0 2%;
   margin-block-start: 0;
   margin-block-end: 0;
+  position: relative;
 }
 
 
@@ -129,8 +134,22 @@
   border-radius: 5px;
 }
 
+.pulldown {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10em;
+}
+
 .pulldown ul {
-    display: none;
+  display: none;
+}
+
+.pulldown input {
+  display: none;
+}
+
+.pulldown input:checked+ul {
+  display: block;
 }
 
 </style>

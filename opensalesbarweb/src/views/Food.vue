@@ -8,81 +8,25 @@
           
           <h2 id="_special">Special</h2>
           <div class="imglist">
-              <div class="imgnaka1">
-                <figcaption>季節のメニュー１</figcaption>
-              </div>
-              <div class="imgnaka2">
-                <figcaption>季節のメニュー２</figcaption>
-              </div>
-              <div class="imgnaka3">
-                <figcaption>季節のメニュー３</figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_appetizer">Appetizer</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_soup">Soup</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_main">Main</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_pasta">Pasta</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_dessert">Dessert</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+          </div>
 
         </figure>
       </main>
@@ -114,6 +58,63 @@
 
 
 <script>
+import { onMounted, ref } from '@vue/runtime-core'
+import axios from 'axios'
+// @ is an alias to /src
+
+
+export default {
+  name: 'blog',
+
+    setup() {
+      const contents = ref([]);
+      const loaded = ref(false);
+      const loadingMsg = ref("Loading...");
+
+      //async無名関数にしないとダメ
+      onMounted(async () => {
+        console.log('App.vue is mounted!');
+
+        //axiosを使ったgetリクエスト
+        await axios
+          .get(
+            "https://osbtest.microcms.io/api/v1/food",
+            //headers: リクエストヘッダー
+            {
+              headers: {'X-MICROCMS-API-KEY': process.env.VUE_APP_CMS_API_KEY}
+              
+            })
+          //thenはリクエストが成功or失敗したら動く
+          .then(
+            (response) => {
+              console.log(response);
+              contents.value = response.data.contents
+              loaded.value = true;
+              loadingMsg.value ="Loaded!";
+              console.log(loaded);
+            })
+          .catch(
+            (error) => { console.log(error) });
+
+
+          //catchはリクエストが失敗したら動く
+          //.catch(console.log(err))
+      });
+
+    /*  console.log(`API KEY: ${process.env.VUE_APP_CMS_API_KEY}`); */
+
+      return {
+        contents,
+        loaded,
+        loadingMsg,
+      }
+    },
+
+    components: {
+      
+    }
+  
+}
 
 </script>
 
@@ -131,59 +132,69 @@
 	height: 70vh;
   margin: -10em 0 10em 0;
   width: 100%;
-  background: url("~@/assets/images/roastBeef.jpg") no-repeat center/cover;
+  background: url("~@/assets/images/Topfood.jpg") no-repeat center/cover;
   position: relative;
-  z-index: 9;
+  z-index: 9; /*サイドメニュー<トップ画像<グローバルメニュー となるようにしたい*/
 }
 
-#food main {
+main {
   padding-top: 0;
 }
 
-#food h2 {
-  padding-top: 10em;
+h2 {
+  padding-top: 10em; /*サイドバーをクリックしてページ内リンクに飛んだとき、グローバルヘッダーと被らないように*/
 }
 
-#food figure {
+h3 {
+  width: 80%;
+  margin: 1em auto;
+  font-size: 16px;
+  background: #ddd;
+}
+
+figure {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
+  background: #ccc;
 }
 
-#food figure .imglist {
+.imglist /*各列に画像が3つ並ぶように*/ {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background: #bbb;
 }
 
-#food figure .imglist div {
-  width: 200px;
-  height: 300px;
+.content /*imgnakaに対応*/ {
   margin: 50px 5px;
-  background: url("~@/assets/images/azuki.jpg") no-repeat; 
 }
 
-#food figure .imglist div figcaption {
-  padding-top: 300px;  
+.content img {
+  width: 300px;
+  height: 250px;
 }
 
-#food figure .imglist .imgnaka1 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
+figcaption {
+  width: 80%;
+  margin: 1em auto 0;
+  background: #ddd;
 }
 
-#food figure .imglist .imgnaka2 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
-}
-
-#food figure .imglist .imgnaka3 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
+.content p {
+  background: #ddd;
 }
 
 aside {
   position: fixed;
   top: 50%;
   left: 2em;
+  background: #eee;
+}
+
+aside table td {
+  padding: 0.5em 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -192,8 +203,16 @@ aside {
     padding-top: 100px;
   }
   
-  #food figure {
+  figure {
     width: 100%;
+  }
+
+  .imglist /*スマホ版はすべての画像が縦並び*/ {
+    flex-direction: column;
+  }
+
+  .content {
+    margin: 0 5px;
   }
 
   aside {

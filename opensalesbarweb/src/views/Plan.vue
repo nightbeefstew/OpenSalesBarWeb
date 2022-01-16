@@ -5,33 +5,27 @@
     <section class="container">
       <main id="contents">  
         <figure>
-          
           <h2 id="_special">Special（期間限定プラン）</h2>
           <div class="imglist">
-              <div class="imgnaka1">
-                <figcaption>【ランチタイム限定】パティシェ特製スイーツセット</figcaption>
-              </div>
-              <div class="imgnaka2">
-                <figcaption>【ランチタイム限定】本日のパスタセット</figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_regular">Regular（通常プラン）</h2>
-          <div class="imglist">
-              <div class="imgnaka1">
-                <figcaption>【20時までご入店のお客様限定】0次会プラン</figcaption>
-              </div>
-              <div class="imgnaka2">
-                <figcaption>2時間飲み放題ライトプラン</figcaption>
-              </div>
-              <div class="imgnaka3">
-                <figcaption>2時間飲み放題ミディアムプラン◆生ビール飲み放題</figcaption>
-              </div>
-              <div class="imgnaka4">
-                <figcaption>2時間飲み放題リッチプラン◆スパークリングワイン飲み放題</figcaption>
-              </div>
-          </div><!--imglist-->
-
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+          </div>
         </figure>
       </main>
         <aside class="sidebar">
@@ -50,6 +44,63 @@
 
 
 <script>
+import { onMounted, ref } from '@vue/runtime-core'
+import axios from 'axios'
+// @ is an alias to /src
+
+
+export default {
+  name: 'blog',
+
+    setup() {
+      const contents = ref([]);
+      const loaded = ref(false);
+      const loadingMsg = ref("Loading...");
+
+      //async無名関数にしないとダメ
+      onMounted(async () => {
+        console.log('App.vue is mounted!');
+
+        //axiosを使ったgetリクエスト
+        await axios
+          .get(
+            "https://osbtest.microcms.io/api/v1/plan",
+            //headers: リクエストヘッダー
+            {
+              headers: {'X-MICROCMS-API-KEY': process.env.VUE_APP_CMS_API_KEY}
+              
+            })
+          //thenはリクエストが成功or失敗したら動く
+          .then(
+            (response) => {
+              console.log(response);
+              contents.value = response.data.contents
+              loaded.value = true;
+              loadingMsg.value ="Loaded!";
+              console.log(loaded);
+            })
+          .catch(
+            (error) => { console.log(error) });
+
+
+          //catchはリクエストが失敗したら動く
+          //.catch(console.log(err))
+      });
+
+    /*  console.log(`API KEY: ${process.env.VUE_APP_CMS_API_KEY}`); */
+
+      return {
+        contents,
+        loaded,
+        loadingMsg,
+      }
+    },
+
+    components: {
+      
+    }
+  
+}
 
 </script>
 
@@ -69,62 +120,67 @@
   width: 100%;
   background: url("~@/assets/images/2hAsYouWantMedium.jpg") no-repeat center/cover;
   position: relative;
-  z-index: 9;
+  z-index: 9; /*サイドメニュー<トップ画像<グローバルメニュー となるようにしたい*/
 }
 
-#plan main {
+main {
   padding-top: 0;
 }
 
-#plan h2 {
-  padding-top: 10em;
+h2 {
+  padding-top: 10em; /*サイドバーをクリックしてページ内リンクに飛んだとき、グローバルヘッダーと被らないように*/
 }
 
-#plan figure {
+h3 {
+  width: 80%;
+  margin: 1em auto;
+  font-size: 16px;
+  background: #ddd;
+}
+
+figure {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
+  background: #ccc;
 }
 
-#plan figure .imglist {
+.imglist /*各列に画像が3つ並ぶように*/ {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap;
+  background: #bbb;
 }
 
-#plan figure .imglist div {
-  width: 400px;
-  height: 300px;
+.content /*imgnakaに対応*/ {
   margin: 50px 5px;
-  background: url("~@/assets/images/azuki.jpg") no-repeat; 
 }
 
-#plan figure .imglist div figcaption {
-  padding-top: 300px;  
+.content img {
+  width: 300px;
+  height: auto;
 }
 
-#plan figure .imglist .imgnaka1 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
+figcaption {
+  width: 80%;
+  margin: 1em auto 0;
+  background: #ddd;
 }
 
-#plan figure .imglist .imgnaka2 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
-}
-
-#plan figure .imglist .imgnaka3 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
-}
-
-#plan figure .imglist .imgnaka4 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
+.content p {
+  background: #ddd;
 }
 
 aside {
   position: fixed;
   top: 50%;
   left: 2em;
+  background: #eee;
+}
+
+aside table td {
+  padding: 0.5em 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -133,8 +189,16 @@ aside {
     padding-top: 100px;
   }
   
-  #plan figure {
+  figure {
     width: 100%;
+  }
+
+  .imglist /*スマホ版はすべての画像が縦並び*/ {
+    flex-direction: column;
+  }
+
+  .content {
+    margin: 0 5px;
   }
 
   aside {

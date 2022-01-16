@@ -5,110 +5,28 @@
     <section class="container">
       <main id="contents">  
         <figure>
-          
-          <h2 id="_cocktails">Cocktails</h2>
-          <div class="imglist">
-              <div class="imgnaka1">
-                <figcaption>Azuki</figcaption>
-              </div>
-              <div class="imgnaka2">
-                <figcaption>Orange</figcaption>
-              </div>
-              <div class="imgnaka3">
-                <figcaption>Milk</figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_whisky">Whisky</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_brandy">Brandy</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_spirits">Spirits</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_wine">Wine</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_beer">Beer</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
-          <h2 id="_champagne">Champagne</h2>
-          <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
-
           <h2 id="_softdrink">Soft Drink</h2>
           <div class="imglist">
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-              <div class="imgnaka">
-                <figcaption></figcaption>
-              </div>
-          </div><!--imglist-->
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+            <div class="content" v-for="content in contents" :key="content.id"> 
+              <h3 class="name">{{ content.name }}</h3>
+              <img v-bind:src=content.image.url>
+              <figcaption class="description">{{ content.description }}</figcaption>
+              <p><span class="price">￥{{ content.price }}</span></p>
+            </div>
+
+          </div>
 
         </figure>
       </main>
@@ -146,6 +64,63 @@
 
 
 <script>
+import { onMounted, ref } from '@vue/runtime-core'
+import axios from 'axios'
+// @ is an alias to /src
+
+
+export default {
+  name: 'blog',
+
+    setup() {
+      const contents = ref([]);
+      const loaded = ref(false);
+      const loadingMsg = ref("Loading...");
+
+      //async無名関数にしないとダメ
+      onMounted(async () => {
+        console.log('App.vue is mounted!');
+
+        //axiosを使ったgetリクエスト
+        await axios
+          .get(
+            "https://osbtest.microcms.io/api/v1/drink",
+            //headers: リクエストヘッダー
+            {
+              headers: {'X-MICROCMS-API-KEY': process.env.VUE_APP_CMS_API_KEY}
+              
+            })
+          //thenはリクエストが成功or失敗したら動く
+          .then(
+            (response) => {
+              console.log(response);
+              contents.value = response.data.contents
+              loaded.value = true;
+              loadingMsg.value ="Loaded!";
+              console.log(loaded);
+            })
+          .catch(
+            (error) => { console.log(error) });
+
+
+          //catchはリクエストが失敗したら動く
+          //.catch(console.log(err))
+      });
+
+    /*  console.log(`API KEY: ${process.env.VUE_APP_CMS_API_KEY}`); */
+
+      return {
+        contents,
+        loaded,
+        loadingMsg,
+      }
+    },
+
+    components: {
+      
+    }
+  
+}
 
 </script>
 
@@ -168,54 +143,64 @@
   z-index: 9; /*サイドメニュー<トップ画像<グローバルメニュー となるようにしたい*/
 }
 
-#drink main {
+main {
   padding-top: 0;
 }
 
-#drink h2 {
-  padding-top: 10em; /*グローバルヘッダーと被らないように*/
+h2 {
+  padding-top: 10em; /*サイドバーをクリックしてページ内リンクに飛んだとき、グローバルヘッダーと被らないように*/
 }
 
-#drink figure {
+h3 {
+  width: 80%;
+  margin: 1em auto;
+  font-size: 16px;
+  background: #ddd;
+}
+
+figure {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
+  background: #ccc;
 }
 
-#drink figure .imglist {
+.imglist /*各列に画像が3つ並ぶように*/ {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background: #bbb;
 }
 
-#drink figure .imglist div {
+.content /*imgnakaに対応*/ {
+  margin: 50px 5px;
+}
+
+.content img {
   width: 200px;
   height: 300px;
-  margin: 50px 5px;
-  background: url("~@/assets/images/azuki.jpg") no-repeat; 
 }
 
-#drink figure .imglist div figcaption {
-  padding-top: 300px;  
+figcaption {
+  width: 80%;
+  margin: 1em auto 0;
+  background: #ddd;
 }
 
-#drink figure .imglist .imgnaka1 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
-}
-
-#drink figure .imglist .imgnaka2 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
-}
-
-#drink figure .imglist .imgnaka3 {
-  background: url("~@/assets/images/azuki.jpg") no-repeat top left/cover;
+.content p {
+  background: #ddd;
 }
 
 aside {
   position: fixed;
   top: 50%;
   left: 2em;
+  background: #eee;
+}
+
+aside table td {
+  padding: 0.5em 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -224,8 +209,16 @@ aside {
     padding-top: 100px;
   }
   
-  #drink figure {
+  figure {
     width: 100%;
+  }
+
+  .imglist /*スマホ版はすべての画像が縦並び*/ {
+    flex-direction: column;
+  }
+
+  .content {
+    margin: 0 5px;
   }
 
   aside {
