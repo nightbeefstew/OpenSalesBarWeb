@@ -229,6 +229,7 @@ aside table td {
 
   .content {
     margin: 0 5px;
+    width: 100%;
   }
 
   aside {
