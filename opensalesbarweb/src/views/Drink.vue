@@ -34,6 +34,22 @@
               </template>
             </div>
           </section>
+
+          <section>
+            <h2 id="_wine">Wine</h2>
+            <div class="imglist">
+              <template v-for="content in contents" :key="content.id"> 
+                <div class="content" v-if="content.category[0] === 'wine'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src=content.image.url>
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category[0] }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
         </div><!--.figure-->
       </main>
       
@@ -206,7 +222,7 @@ aside {
   position: fixed;
   top: 50%;
   left: 2em;
-  background: #eee;
+  background: #333;
 }
 
 aside table td {
