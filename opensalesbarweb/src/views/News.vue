@@ -17,6 +17,10 @@
       </p>
 
     </div>
+    <div>
+      <h2>CloudFront配信テスト</h2>
+      <img src="https://ddfjcsntx8hpk.cloudfront.net/私は大砲よ.jpg" />
+    </div>
 
   </div>
 </template>
@@ -81,8 +85,6 @@ export default {
 
     /* S3にアップロード */
     uploadS3(file, presignedUrl) {
-      //const formData = new FormData();
-      //formData.append('myFile', file);
       const config = {
         headers: {
           'content-type': 'multipart/form-data'

@@ -4,8 +4,8 @@ module.exports = {
         proxy: {
             "^/api/": {
                 target: 'http://localhost:3000',
-                logLevel: 'debug',
-                pathRewrite: {"^/api/": "/api/"}
+                // logLevel: 'debug',
+                // pathRewrite: {"^/api/": "/api/"}
             },
         }
     }
