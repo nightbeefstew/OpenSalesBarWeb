@@ -19,7 +19,18 @@
     </div>
     <div>
       <h2>CloudFront配信テスト</h2>
-      <img src="https://ddfjcsntx8hpk.cloudfront.net/私は大砲よ.jpg" />
+      <img src="https://ddfjcsntx8hpk.cloudfront.net/" />
+      <img :src="firstImageUrl"/>
+    </div>
+
+    <div>
+      <h2>listObjectsテスト</h2>
+      <button @click="getListBtn">オブジェクト一覧取得</button>
+    </div>
+
+    <div>
+      <h2>ルーティングテスト</h2>
+      <button @click="routingBtn">ルーティング</button>
     </div>
 
   </div>
@@ -38,6 +49,7 @@ export default {
 
   data() {
     return {
+      firstImageUrl: 'https://ddfjcsntx8hpk.cloudfront.net',
       uploadFile: null,
       presignedUrl: null,
 
@@ -77,6 +89,7 @@ export default {
 
       this.$store.dispatch('getUrl', payload)
       .then(res => {
+        console.log(res)
         this.presignedUrl = res.url
         this.uploadS3(file, this.presignedUrl);
       });
@@ -87,7 +100,7 @@ export default {
     uploadS3(file, presignedUrl) {
       const config = {
         headers: {
-          'content-type': 'multipart/form-data'
+          'content-type': 'multipart/form-data',
         }
       };
       const payload = {
@@ -100,6 +113,31 @@ export default {
           return console.log(res);
         });
 
+    },
+
+    /* オブジェクト取得ボタンが押されたら */
+    getListBtn() {
+      console.log('getListBtn');
+
+      this.$store.dispatch('getObjects', {})
+        .then(res => {
+          const contents = res.data.Contents;
+          this.setFirstImage(contents[0]);
+        });
+    },
+
+    /* 画像をセット */
+    setFirstImage(content) {
+      console.log({content});
+      this.firstImageUrl += ('/' + content.Key);
+    },
+
+    /* ルーティングボタンが押されたら */
+    routingBtn() {
+      this.$store.dispatch('routingTest', {})
+        .then(res => {
+          console.log(res);
+        });
     }
 
   }

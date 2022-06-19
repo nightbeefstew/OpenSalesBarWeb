@@ -16,7 +16,7 @@ export default createStore({
     /* S3アップロードURLの取得 */
     async getUrl({ commit }, payload) {
       try {
-        const res = await axios.get('/api/getSignedUrl', {params: payload});
+        const res = await axios.get('/api/s3/getSignedUrl', {params: payload});
         console.log(res);
         return res.data;
 
@@ -36,7 +36,37 @@ export default createStore({
         commit('setApiErrorCode', 'failure')
         console.log(e);
       }
-    }
+    },
+
+    /* S3からオブジェクトリストを取得 */
+    async getObjects({ commit }, payload) {
+      try {
+        console.log('getObjects');
+        const res = await axios.get('/api/s3/listObjects', {params: payload});
+        console.log(res);
+        return res.data;
+
+      } catch(e) {
+        commit('setApiErrorCode', 'failure')
+        console.log(e);
+      }
+    },
+
+    /* ルーティングテスト */
+    async routingTest({ commit }, payload) {
+      try {
+        console.log('routingTest');
+        const res = await axios.get('/api/common/routingTest', {params: payload});
+        console.log(res);
+        return res.data;
+
+      } catch(e) {
+        commit('setApiErrorCode', 'failure')
+        console.log(e);
+      }
+    },
+
+
 
   },
   modules: {
