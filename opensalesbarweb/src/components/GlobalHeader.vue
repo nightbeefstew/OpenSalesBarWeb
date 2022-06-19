@@ -35,6 +35,7 @@
           </ul>
         </li>
         <li><router-link to="/Access">Access</router-link></li>
+        <li><router-link to="/admin">Admin</router-link></li>
         <li>
           <div class="gNaviRightGroup">
             <ul>

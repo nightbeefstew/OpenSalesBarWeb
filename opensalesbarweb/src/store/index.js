@@ -52,6 +52,20 @@ export default createStore({
       }
     },
 
+    /* microCMSにメニューを登録 */
+    async postMenu({ commit }, payload) {
+      try {
+        console.log('postMicroCms', payload);
+        const res = await axios.post('/api/microCms/postMenu', payload);
+        console.log(res);
+        return res.data;
+
+      } catch(e) {
+        commit('setApiErrorCode', 'failure')
+        console.log(e);
+      }
+    },
+
     /* ルーティングテスト */
     async routingTest({ commit }, payload) {
       try {
