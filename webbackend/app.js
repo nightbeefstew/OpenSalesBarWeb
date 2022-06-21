@@ -4,10 +4,10 @@ const https = require('https');
 const fs = require('fs');
 
 // SSL/TSL通信
-const sslOptions = {
+/* const sslOptions = {
     key: fs.readFileSync('./keys/server.key'),
     cert: fs.readFileSync('./keys/server.crt')
-};
+}; */
 
 //corsの使用
 const cors = require('cors');
@@ -51,13 +51,14 @@ app.get('/api/getSignedUrl', (req, res) => {
     const params = {
         Bucket: process.env.AWS_S3_BUCKET,
         Key: req.query.fileName,
-        Expires: 60,
+        Expires: 6000,
         ContentType: req.query.fileType
     };
     // 署名付きURLの取得
     s3.getSignedUrl('putObject', params, (err, url) => {
         if (err) {
             console.log('error occured');
+            console.log(err);
             return;
         }
         // フロントに返す

@@ -77,6 +77,7 @@ export default {
 
       this.$store.dispatch('getUrl', payload)
       .then(res => {
+        console.log(res)
         this.presignedUrl = res.url
         this.uploadS3(file, this.presignedUrl);
       });
@@ -87,7 +88,8 @@ export default {
     uploadS3(file, presignedUrl) {
       const config = {
         headers: {
-          'content-type': 'multipart/form-data'
+          'content-type': 'multipart/form-data',
+          //'X-Amz-Acl':  'bucket-owner-full-control'
         }
       };
       const payload = {
