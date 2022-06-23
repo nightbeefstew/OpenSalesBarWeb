@@ -66,6 +66,25 @@ export default createStore({
       }
     },
 
+    /*microCMSからメニューを取得 */
+    async getMenu( { commit }) {
+      try {
+        // const res = await axios.get('/api/microCms/getMenu');
+        // console.log('hi res')
+        // console.log(res);
+        // return res.data;
+        const res = await axios.get('/api/microCms/getMenu');
+            console.log({res});
+            return res.data;
+        
+
+      } catch(e) {
+        commit('setApiErrorCode', 'failure')
+        console.log(e);
+      }
+
+    },
+
     /* ルーティングテスト */
     async routingTest({ commit }, payload) {
       try {

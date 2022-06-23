@@ -1,38 +1,75 @@
 var router = require("express").Router();
 const axios = require('axios');
 
+const endPoint = "https://nbsblog.microcms.io/api/v1/opensalesbar_menu"
 
-router.post('/postMenu', (req) => {
-    const payload = {
+// router.get('/getMenu', (req, res) => {
+//     const config = {
+//         headers: {
+//             'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
+//         },
+//     };
+//     const result = getMenu(config);
+//     console.log({result});
+//     res.json(getMenu(config));
+// })
+
+router.get('/getMenu', (req, res) => {
+    (async() => {
+        
+        const config = {
+            headers: {
+                'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
+            },
+        };
+        const result = await getMenu(config);
+        console.log({result});
+        res.json(result);
+    })().catch();
+})
+
+router.post('/postMenu', (req, res) => {
+    const config = {
         headers: {
             'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
             'Content-Type': 'application/json',
         },
+    };
+    const payload = {
         name: req.body.name,
         category: req.body.category,
         price: req.body.price,
         description: req.body.description,
         picture_url: req.body.picture_url
     };
-    console.log
-    console.log({payload});
-    postMenu(payload);
     
-    return 'response';
+    res.json(postMenu(endPoint, payload, config));
 })
 
-async function postMenu(payload) {
-    await axios.post("https://nbsblog.microcms.io/api/v1/opensalesbar_menu", payload)
+async function getMenu(config) {
+    console.log('hello');
+    const result = await axios.get(endPoint, config);
+    return result.data;
+    // .then(
+    //     (response) => {
+    //         resolve(response.data);
+    //     })
+    // .catch(
+    //     (error) => {
+    //         console.log(error);
+    //         return error;
+    //     });
+}
+
+async function postMenu(endPoint, payload, config) {
+    await axios.post(endPoint, payload, config)
     .then(
         (response) => {
-            console.log(response);
-            //res.send(response.data);
-            //console.log(response.data);
+            return response;
         })
     .catch(
         (error) => {
-            console.log(error);
-            //res.send('failed to get API2');
+            return error;
         });
 }
 
