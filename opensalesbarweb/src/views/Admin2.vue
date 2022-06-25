@@ -27,9 +27,19 @@
     <div>
       <h2>メニューの取得と削除</h2>
       <button class="get_menu" @click="getMenu">メニューの取得</button>
-      <p>
-        URL: {{ presignedUrl }}
-      </p>
+      
+        <template v-for="item in menu" :key="item.id">
+            <ul class="row" style="display:flex;">
+              <li class="col picture"><img v-bind:src="item.picture_url"></li>
+              <li class="col name">{{item.name}}</li>
+              <li class="col price">{{item.price}}</li>
+              <li class="col description">{{item.description}}</li>
+              <li class="col picture_url">{{item.picture_url}}</li>
+              <li class="col created_at">{{item.created_at}}</li>
+              <li class="col btn"><button @click="deleteBtn(item)">削除</button></li>
+            </ul>
+        </template>
+        
 
     </div>
 
@@ -76,11 +86,18 @@ export default {
 
     /* アップロードボタンを押したときの処理 */
     uploadBtn() {
-      this.upload()
+      this.uploadMenu();
+    },
+
+    /* 削除ボタンを押したときの処理 */
+    deleteBtn(item) {
+      console.log(item)
+      console.log('deletebtn')
+      this.deleteMenu(item);
     },
 
     /* アップロード */
-    upload() {
+    uploadMenu() {
       const file = this.uploadFile;
       this.getS3UploadUrl(file);
     },
@@ -88,6 +105,7 @@ export default {
     /* 署名付きURLの取得 */
     getS3UploadUrl(file) {
       const payload = {
+        operation: 'putObject',
         fileName: file.name,
         fileType: file.type,
         headers: {}
@@ -122,13 +140,15 @@ export default {
 
     },
 
+    /* microCMSに登録 */
     registerToMicroCms(file) {
       const payload = {
         name: this.menuInfo.name,
         category: this.menuInfo.category,
         price: this.menuInfo.price,
         description: this.menuInfo.description,
-        picture_url: "https://ddfjcsntx8hpk.cloudfront.net/" + file.name
+        picture_url: "https://ddfjcsntx8hpk.cloudfront.net/" + file.name,
+        file_name: file.name
       };
       this.$store.dispatch('postMenu', payload)
         .then(res => {
@@ -136,6 +156,59 @@ export default {
         });
     },
 
+    /* 削除 */
+    deleteMenu(item) {
+      this.getS3DeleteUrl(item.file_name);
+      this.deleteFromMicroCms(item.id);
+    },
+
+    /* 署名付きURLの取得 */
+    getS3DeleteUrl(fileName) {
+      const payload = {
+        operation: 'deleteObject',
+        fileName: fileName,
+        headers: {}
+      }
+
+      this.$store.dispatch('getUrl', payload)
+      .then(res => {
+        this.presignedUrl = res.url;
+        this.deleteS3(fileName, this.presignedUrl);
+        console.log(this.presignedUrl);
+      });
+      
+    },
+
+    /* S3から削除 */
+    deleteS3(fileName, presignedUrl) {
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        }
+      };
+      const payload = {
+        url: presignedUrl,
+        fileName: fileName,
+        config: config
+      };
+      this.$store.dispatch('s3Delete', payload)
+        .then(res => {
+          console.log({res})
+          return;
+        });
+
+    },
+
+    /* microCMSから削除 */
+    deleteFromMicroCms(id) {
+      const payload = {
+        content_id: id,
+      };
+      this.$store.dispatch('deleteMenu', payload)
+        .then(res => {
+          console.log(res);
+        });
+    },
 
     /* 画像をセット */
     setFirstImage(content) {
@@ -163,5 +236,9 @@ export default {
 </script>
 
 <style scoped>
+  .col {
+    margin: 10px 4px;
+    width: 40px;
+  }
 
 </style>

@@ -43,10 +43,21 @@ router.post('/postMenu', (req, res) => {
         category: req.body.category,
         price: req.body.price,
         description: req.body.description,
-        picture_url: req.body.picture_url
+        picture_url: req.body.picture_url,
+        file_name: req.body.file_name
     };
     
     res.json(postMenu(endPoint, payload, config));
+})
+
+router.delete('/deleteMenu', (req, res) => {
+    const config = {
+        headers: {
+            'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
+        },
+    };
+    
+    res.json(deleteMenu(req.query.content_id, config));
 })
 
 /* 指定したカテゴリのメニューを10件取得 */
@@ -98,4 +109,23 @@ async function postMenu(endPoint, payload, config) {
         });
 }
 
+async function deleteMenu(contentId, config) {
+    let url;
+    if(contentId) {
+        url = endPoint + '/' + contentId;
+    } else {
+        return null;
+    }
+    const result = await axios.delete(url, config);
+    return result.data;
+    // .then(
+    //     (response) => {
+    //         resolve(response.data);
+    //     })
+    // .catch(
+    //     (error) => {
+    //         console.log(error);
+    //         return error;
+    //     });
+}
 module.exports = router;

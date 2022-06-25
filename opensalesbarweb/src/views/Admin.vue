@@ -97,6 +97,7 @@ export default {
     /* 署名付きURLの取得 */
     getS3UploadUrl(file) {
       const payload = {
+        operation: 'putObject',
         fileName: file.name,
         fileType: file.type,
         headers: {}
