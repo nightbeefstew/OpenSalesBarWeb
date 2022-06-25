@@ -67,13 +67,9 @@ export default createStore({
     },
 
     /*microCMSからメニューを取得 */
-    async getMenu( { commit }) {
+    async getMenu( { commit }, payload) {
       try {
-        // const res = await axios.get('/api/microCms/getMenu');
-        // console.log('hi res')
-        // console.log(res);
-        // return res.data;
-        const res = await axios.get('/api/microCms/getMenu');
+        const res = await axios.get('/api/microCms/getMenu', {params: payload});
             console.log({res});
             return res.data;
         

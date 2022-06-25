@@ -3,26 +3,15 @@ const axios = require('axios');
 
 const endPoint = "https://nbsblog.microcms.io/api/v1/opensalesbar_menu"
 
-// router.get('/getMenu', (req, res) => {
-//     const config = {
-//         headers: {
-//             'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
-//         },
-//     };
-//     const result = getMenu(config);
-//     console.log({result});
-//     res.json(getMenu(config));
-// })
-
 router.get('/getMenu', (req, res) => {
     (async() => {
-        
         const config = {
             headers: {
                 'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
             },
         };
-        const result = await getMenu(config);
+        console.log(req.query);
+        const result = await getMenu(req.query.category, config);
         console.log({result});
         res.json(result);
     })().catch();
@@ -60,10 +49,15 @@ router.post('/postMenu', (req, res) => {
     res.json(postMenu(endPoint, payload, config));
 })
 
-/* メニューを10件取得 */
-async function getMenu(config) {
-    console.log('hello');
-    const result = await axios.get(endPoint, config);
+/* 指定したカテゴリのメニューを10件取得 */
+async function getMenu(category, config) {
+    let url;
+    if(category) {
+        url = endPoint + '?filters=category[contains]' + category;
+    } else {
+        url = endPoint;
+    }
+    const result = await axios.get(url, config);
     return result.data;
     // .then(
     //     (response) => {

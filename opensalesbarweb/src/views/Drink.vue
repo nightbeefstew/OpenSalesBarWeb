@@ -69,20 +69,30 @@ export default {
   },
 
   mounted() {
-    this.getMenu();
+    //this.getDrink();
+    this.getMenu('food');
 
   },
 
   methods: {
     /* メニュー取得 */
-    getMenu() {
+    getDrink() {
       this.$store.dispatch('getDrink')
         .then((res) => {
           this.menu = res.contents;
           this.firstMenuName = res.contents[0].name
-          console.log(res);
-          console.log(this.firstMenuName);
-          console.log('hi')
+        });
+    },
+    
+    getMenu(category) {
+      const payload = {
+        category: category,
+      };
+
+      this.$store.dispatch('getMenu', payload)
+        .then((res) => {
+          this.menu = res.contents;
+          this.firstMenuName = res.contents[0].name
         });
     }
   }
