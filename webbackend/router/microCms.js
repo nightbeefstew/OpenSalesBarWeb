@@ -28,6 +28,20 @@ router.get('/getMenu', (req, res) => {
     })().catch();
 })
 
+router.get('/getDrink', (req, res) => {
+    (async() => {
+        
+        const config = {
+            headers: {
+                'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
+            },
+        };
+        const result = await getDrink(config);
+        console.log({result});
+        res.json(result);
+    })().catch();
+})
+
 router.post('/postMenu', (req, res) => {
     const config = {
         headers: {
@@ -46,9 +60,26 @@ router.post('/postMenu', (req, res) => {
     res.json(postMenu(endPoint, payload, config));
 })
 
+/* メニューを10件取得 */
 async function getMenu(config) {
     console.log('hello');
     const result = await axios.get(endPoint, config);
+    return result.data;
+    // .then(
+    //     (response) => {
+    //         resolve(response.data);
+    //     })
+    // .catch(
+    //     (error) => {
+    //         console.log(error);
+    //         return error;
+    //     });
+}
+
+async function getDrink(config) {
+    console.log('helloDrink');
+    const url = endPoint + '?filters=category[contains]drink'
+    const result = await axios.get(url, config);
     return result.data;
     // .then(
     //     (response) => {

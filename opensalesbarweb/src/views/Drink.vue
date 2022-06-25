@@ -76,7 +76,7 @@ export default {
   methods: {
     /* メニュー取得 */
     getMenu() {
-      this.$store.dispatch('getMenu')
+      this.$store.dispatch('getDrink')
         .then((res) => {
           this.menu = res.contents;
           this.firstMenuName = res.contents[0].name
