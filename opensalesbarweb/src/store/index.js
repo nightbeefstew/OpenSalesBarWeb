@@ -55,7 +55,7 @@ export default createStore({
       try {
         console.log('getObjects');
         const res = await axios.get('/api/s3/listObjects', {params: payload});
-        console.log(res);
+        console.log({res});
         return res.data;
 
       } catch(e) {
@@ -69,7 +69,7 @@ export default createStore({
       try {
         console.log('postMicroCms', payload);
         const res = await axios.post('/api/microCms/postMenu', payload);
-        console.log(res);
+        console.log({res});
         return res.data;
 
       } catch(e) {
@@ -85,27 +85,6 @@ export default createStore({
         const res = await axios.get('/api/microCms/getMenu', {params: payload});
             console.log({res});
             return res.data;
-        
-
-      } catch(e) {
-        commit('setApiErrorCode', 'failure')
-        console.log(e);
-      }
-
-    },
-
-    
-    /*microCMSからメニューを取得 */
-    async getDrink( { commit }) {
-      try {
-        // const res = await axios.get('/api/microCms/getMenu');
-        // console.log('hi res')
-        // console.log(res);
-        // return res.data;
-        const res = await axios.get('/api/microCms/getDrink');
-            console.log({res});
-            return res.data;
-        
 
       } catch(e) {
         commit('setApiErrorCode', 'failure')
@@ -119,7 +98,7 @@ export default createStore({
       try {
         console.log('deleteMenu', payload);
         const res = await axios.delete('/api/microCms/deleteMenu', {params: payload});
-        console.log(res);
+        console.log({res});
         return res.data;
 
       } catch(e) {

@@ -1,131 +1,110 @@
 var router = require("express").Router();
+const { Endpoint } = require("aws-sdk");
 const axios = require('axios');
 
 const endPoint = "https://nbsblog.microcms.io/api/v1/opensalesbar_menu"
+const config = {
+    headers: {
+        'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
+    },
+};
 
-router.get('/getMenu', (req, res) => {
-    (async() => {
-        const config = {
-            headers: {
-                'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
-            },
-        };
-        console.log(req.query);
-        const result = await getMenu(req.query.category, config);
-        console.log({result});
-        res.json(result);
-    })().catch();
-})
+/* ルーティング */
+router.get('/getMenu', getMenu);
+router.post('/postMenu', postMenu);
+router.delete('/deleteMenu', deleteMenu);
 
-router.get('/getDrink', (req, res) => {
-    (async() => {
+
+/* microCMSからメニューを取得 */
+async function getMenu(req, res) {
+    try {
+        let url = endPoint;
+
+        // クエリストリングで条件を指定
+        // 取得件数の指定(指定しない場合、100件)
+        if(req.query.limit) {
+            url += '?limit=' + req.query.limit;
+        } else {
+            url += '?limit=' + 100;
+        }
+        // カテゴリの指定（指定しない場合、すべて）
+        if(req.query.category)
+            url +='&filters=category[contains]' + req.query.category;
         
-        const config = {
-            headers: {
-                'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
-            },
+        const result = await axios.get(url, config);
+        res.json(result.data);
+    }
+    catch(e) {
+        console.log(e);
+        res.json(e);
+    }
+}
+
+
+/* microCMSにメニューを追加 */
+async function postMenu(req, res) {
+    try {
+        const url = endPoint;
+        
+        // リクエストボディの設定
+        const payload = {
+            name: req.body.name,
+            category: req.body.category,
+            price: req.body.price,
+            description: req.body.description,
+            picture_url: req.body.picture_url,
+            file_name: req.body.file_name
         };
-        const result = await getDrink(config);
-        console.log({result});
-        res.json(result);
-    })().catch();
-})
+        config.headers['Content-Type'] = 'application/json';
 
-router.post('/postMenu', (req, res) => {
-    const config = {
-        headers: {
-            'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
-            'Content-Type': 'application/json',
-        },
-    };
-    const payload = {
-        name: req.body.name,
-        category: req.body.category,
-        price: req.body.price,
-        description: req.body.description,
-        picture_url: req.body.picture_url,
-        file_name: req.body.file_name
-    };
-    
-    res.json(postMenu(endPoint, payload, config));
-})
-
-router.delete('/deleteMenu', (req, res) => {
-    const config = {
-        headers: {
-            'X-MICROCMS-API-KEY': process.env.MICROCMS_API_KEY,
-        },
-    };
-    
-    res.json(deleteMenu(req.query.content_id, config));
-})
-
-/* 指定したカテゴリのメニューを10件取得 */
-async function getMenu(category, config) {
-    let url;
-    if(category) {
-        url = endPoint + '?filters=category[contains]' + category;
-    } else {
-        url = endPoint;
+        const result = await axios.post(url, payload, config);
+        res.json(result.data);
+    } catch(e) {
+        console.log(e);
+        res.json(e);
     }
-    const result = await axios.get(url, config);
-    return result.data;
-    // .then(
-    //     (response) => {
-    //         resolve(response.data);
-    //     })
-    // .catch(
-    //     (error) => {
-    //         console.log(error);
-    //         return error;
-    //     });
 }
 
-async function getDrink(config) {
-    console.log('helloDrink');
-    const url = endPoint + '?filters=category[contains]drink'
-    const result = await axios.get(url, config);
-    return result.data;
-    // .then(
-    //     (response) => {
-    //         resolve(response.data);
-    //     })
-    // .catch(
-    //     (error) => {
-    //         console.log(error);
-    //         return error;
-    //     });
-}
+/* microCMSから指定したidのメニューを削除 */
+async function deleteMenu(req, res) {
+    try {
+        const url = endPoint + '/' + req.query.content_id;
 
-async function postMenu(endPoint, payload, config) {
-    await axios.post(endPoint, payload, config)
-    .then(
-        (response) => {
-            return response;
-        })
-    .catch(
-        (error) => {
-            return error;
-        });
-}
-
-async function deleteMenu(contentId, config) {
-    let url;
-    if(contentId) {
-        url = endPoint + '/' + contentId;
-    } else {
-        return null;
+        const result = await axios.delete(url, config);
+        res.json(result.data);
+    } catch(e) {
+        console.log(e);
+        res.json(e);
     }
-    const result = await axios.delete(url, config);
-    return result.data;
-    // .then(
-    //     (response) => {
-    //         resolve(response.data);
-    //     })
-    // .catch(
-    //     (error) => {
-    //         console.log(error);
-    //         return error;
-    //     });
 }
 module.exports = router;
+
+
+/* 以下、備忘録（こういう書き方もできる */
+// router.get('/getMenu', (req, res) => {
+//     (async() => {
+//         const result = await getMenu(req.query.category, config);
+//         res.json(result);
+//     })().catch();
+// // })
+// router.get('/getMenu', (req, res) => {
+//     getMenu(req.query.category, config)
+//         .then(result => {
+//             res.json(result);
+//         }
+//         ).catch(err => {
+//             res.json(err)
+//         })
+// })
+
+// /* 指定したカテゴリのメニューを10件取得 */
+// async function getMenu(category, config) {
+//     let url;
+//     if(category) {
+//         url = endPoint + '?filters=category[contains]' + category;
+//     } else {
+//         url = endPoint;
+//     }
+//     const result = await axios.get(url, config);
+//     return result.data;
+// }

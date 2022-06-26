@@ -70,7 +70,7 @@ export default {
 
   mounted() {
     //this.getDrink();
-    this.getMenu('food');
+    this.getMenu('drink');
 
   },
 
@@ -92,7 +92,7 @@ export default {
       this.$store.dispatch('getMenu', payload)
         .then((res) => {
           this.menu = res.contents;
-          this.firstMenuName = res.contents[0].name
+          console.log(res);
         });
     }
   }

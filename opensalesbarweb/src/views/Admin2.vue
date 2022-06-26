@@ -238,7 +238,7 @@ export default {
 <style scoped>
   .col {
     margin: 10px 4px;
-    width: 40px;
+    width: 120px;
   }
 
 </style>
