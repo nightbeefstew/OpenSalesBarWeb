@@ -23,35 +23,35 @@
         </div><!--.figure-->
       </main>
       
-        <aside class="sidebar">
-          <table>
-            <tr>
-              <td><a href="#_cocktails">Cocktails</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_whisky">Whisky</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_brandy">Brandy</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_spirits">Spirits</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_wine">Wine</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_beer">Beer</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_champagne">Champagne</a></td>
-            </tr>
-            <tr>
-              <td><a href="#_softdrink">Soft Drink</a></td>
-            </tr>
-          </table>
-        </aside>
-      </section><!--.container-->
+      <aside class="sidebar">
+        <table>
+          <tr>
+            <td><a href="#_cocktails">Cocktails</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_whisky">Whisky</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_brandy">Brandy</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_spirits">Spirits</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_wine">Wine</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_beer">Beer</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_champagne">Champagne</a></td>
+          </tr>
+          <tr>
+            <td><a href="#_softdrink">Soft Drink</a></td>
+          </tr>
+        </table>
+      </aside>
+    </section><!--.container-->
   </div><!--#drink-->
 </template>
 
@@ -69,21 +69,12 @@ export default {
   },
 
   mounted() {
-    //this.getDrink();
     this.getMenu('drink');
 
   },
 
   methods: {
     /* メニュー取得 */
-    getDrink() {
-      this.$store.dispatch('getDrink')
-        .then((res) => {
-          this.menu = res.contents;
-          this.firstMenuName = res.contents[0].name
-        });
-    },
-    
     getMenu(category) {
       const payload = {
         category: category,
