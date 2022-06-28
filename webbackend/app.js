@@ -9,9 +9,13 @@ const fs = require('fs');
     cert: fs.readFileSync('./keys/server.crt')
 }; */
 
+//bodyParserでpostメソッドのbodyを受け取る準備をする
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 //corsの使用
 const cors = require('cors');
-const { default: axios } = require("axios");
+//const { default: axios } = require("axios");
 const { nextTick } = require("process");
 
 app.use(cors({
@@ -35,6 +39,7 @@ app.get("/", (req, res) => {
 app.use('/', require('./router/index.js'));
 app.use('/api/common', require('./router/common.js'));
 app.use('/api/s3', require('./router/s3.js'));
+app.use('/api/microCms', require('./router/microCms.js'));
 
 /* 環境変数の取得テスト */
 app.get("/api/envTest", (req, res) => {

@@ -11,7 +11,7 @@ router.get('/getSignedUrl', (req, res) => {
         ContentType: req.query.fileType
     };
     // 署名付きURLの取得
-    s3.getSignedUrl('putObject', params, (err, url) => {
+    s3.getSignedUrl(req.query.operation, params, (err, url) => {
         if (err) {
             console.log('error occured');
             return;
@@ -20,11 +20,8 @@ router.get('/getSignedUrl', (req, res) => {
         res.json({
             url,
         });
-        console.log('url returned!');
     })
 
-    console.log('reached');
-    //console.log(req);
     const signedUrl = null;
     return signedUrl;
 })
