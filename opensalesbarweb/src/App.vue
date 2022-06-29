@@ -8,6 +8,50 @@
   </div>
 </template>
 
+<script>
+import GlobalHeader from'@/components/GlobalHeader'
+import Footer from '@/components/Footer'
+
+export default {
+  name: 'App',
+
+  components: {
+    GlobalHeader, Footer,
+  },
+
+  data() {
+    return {
+      isAdmin: false
+
+    }
+  },
+
+  beforeCreate() {
+    // ログイン判定
+    console.log('beforeCreate');
+    
+    this.$router.beforeEach((to, from, next) => {
+      
+      // 管理者権限が必要なページ
+      const pagesRequireAuth = ['/admin', '/admin2'];
+
+      if(to.matched.some(p => pagesRequireAuth.indexOf(p.path) !== -1) && !this.$store.state.isAdmin) {
+        console.log(this.$store.state.isAdmin);
+        next({ path: '/' });
+      } else {
+        next();
+      }
+    })
+
+  },
+
+  mounted() {
+
+  }
+}
+</script>
+
+
 <style>
 
 
@@ -51,12 +95,4 @@ h1 {
 
 </style>
 
-<script>
-  import GlobalHeader from'@/components/GlobalHeader'
-  import Footer from '@/components/Footer'
-  export default { 
-      components: {
-      GlobalHeader, Footer,
-    }
-  }
-</script>
+
