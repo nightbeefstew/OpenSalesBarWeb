@@ -35,13 +35,12 @@
           </ul>
         </li>
         <li><router-link to="/Access">Access</router-link></li>
-        <li><router-link to="/admin">Admin</router-link></li>
+        <li><router-link to="/admin2">Admin</router-link></li>
         <li>
           <div class="gNaviRightGroup">
             <ul>
-              <li>
-              </li>
-              <li>English</li>
+              <li class="loginBtn" @click="login">{{ btnMsg }}</li>
+              <li class="langBtn">English</li>
             </ul>
           </div>
         </li>
@@ -50,6 +49,27 @@
   </div>
   </header>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      btnMsg: 'login'
+    }
+  },
+  methods: {
+    /* ログイン */
+    login() {
+      this.$store.commit('setAuth', !this.$store.state.isAdmin);
+      if(this.$store.state.isAdmin) {
+        this.btnMsg = 'logout'
+      } else {
+        this.btnMsg = 'login'
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 #GlobalHeader {
@@ -122,12 +142,21 @@
   align-items: center;
 }
 
-.gNaviRightGroup li:first-child {
+/* .gNaviRightGroup li:first-child {
     border: 1px solid #000 ;
     height: 3em;
+} */
+
+.loginBtn {
+  background: rgba(170,170,170,0.50);
+  width: 100%;
+  margin: 1.1em auto 0;
+  padding: 0 0.5em;
+  border-radius: 5px;
 }
 
-.gNaviRightGroup li:last-child {
+
+.langBtn {
   background: rgba(170,170,170,0.50);
   width: 100%;
   margin: 1.1em auto 0;

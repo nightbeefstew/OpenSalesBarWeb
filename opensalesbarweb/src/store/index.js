@@ -6,10 +6,16 @@ export default createStore({
   state: {
     /* APIエラー判定用 */
     apiErrorCode: null,
+
+    /* 管理者判定 */
+    isAdmin: false,
   },
   mutations: {
     setApiErrorCode(state, payload) {
-      state.apiErrorCode = payload
+      state.apiErrorCode = payload;
+    },
+    setAuth(state, payload) {
+      state.isAdmin = payload;
     }
   },
   actions: {

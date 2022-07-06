@@ -27,17 +27,29 @@
     <div>
       <h2>メニューの取得と削除</h2>
       <button class="get_menu" @click="getMenu">メニューの取得</button>
-      
+        <ul class="row header" style="display:flex;">
+          <li class="col menuId">メニューID</li>
+          <li class="col picture">画像</li>
+          <li class="col category">カテゴリ</li>
+          <li class="col name">名前</li>
+          <li class="col price">価格</li>
+          <li class="col description">説明</li>
+          <li class="col picture_url">画像URL</li>
+          <li class="col created_at">作成日時</li>
+          <li class="col btn">削除</li>
+        </ul>
         <template v-for="item in menu" :key="item.id">
-            <ul class="row" style="display:flex;">
-              <li class="col picture"><img v-bind:src="item.picture_url"></li>
-              <li class="col name">{{item.name}}</li>
-              <li class="col price">{{item.price}}</li>
-              <li class="col description">{{item.description}}</li>
-              <li class="col picture_url">{{item.picture_url}}</li>
-              <li class="col created_at">{{item.created_at}}</li>
-              <li class="col btn"><button @click="deleteBtn(item)">削除</button></li>
-            </ul>
+          <ul class="row" style="display:flex;">
+            <li class="col menuId">{{item.menuId}}</li>
+            <li class="col picture"><img v-bind:src="item.picture_url"></li>
+            <li class="col category">{{item.category}}</li>
+            <li class="col name">{{item.name}}</li>
+            <li class="col price">{{item.price}}</li>
+            <li class="col description">{{item.description}}</li>
+            <li class="col picture_url">{{item.picture_url}}</li>
+            <li class="col created_at">{{item.createdAt}}</li>
+            <li class="col btn"><button @click="deleteBtn(item)">削除</button></li>
+          </ul>
         </template>
         
 

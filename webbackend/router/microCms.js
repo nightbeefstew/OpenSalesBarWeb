@@ -1,5 +1,4 @@
 var router = require("express").Router();
-const { Endpoint } = require("aws-sdk");
 const axios = require('axios');
 
 const endPoint = "https://nbsblog.microcms.io/api/v1/opensalesbar_menu"
@@ -21,11 +20,14 @@ async function getMenu(req, res) {
         let url = endPoint;
 
         // クエリストリングで条件を指定
+        // 順番
+        url += '?orders=menuId'
+
         // 取得件数の指定(指定しない場合、100件)
         if(req.query.limit) {
-            url += '?limit=' + req.query.limit;
+            url += '&limit=' + req.query.limit;
         } else {
-            url += '?limit=' + 100;
+            url += '&limit=' + 100;
         }
         // カテゴリの指定（指定しない場合、すべて）
         if(req.query.category)
@@ -41,13 +43,65 @@ async function getMenu(req, res) {
 }
 
 
+/* 指定したカテゴリのメニューを数えて返却 */
+async function countMenu(category) {
+    let url = endPoint + '?limit=9999';
+    
+    /* カテゴリの指定があれば条件に含め、なければ全件取得 */
+    if(category)
+        url += '&filters=category[contains]' + category;
+
+    const menu = await axios.get(url, config);
+    return menu.data.totalCount;
+}
+
+/* 指定したカテゴリのメニューの順番の最小の欠番を返却 */
+async function getMissingMenuId(category) {
+    const url = endPoint + '?orders=menuId&limit=9999&filters=category[contains]' + category;
+
+    const menuResponse = await axios.get(url, config);
+    const menu = menuResponse.data.contents;
+
+    let missingMenuId = getCategoryId(category) * 1000 + 1;
+
+    // arr.foreach()だとbreakが使えない
+    // arr.some()のコールバック関数がtrueを返したら動作を止める性質を利用する
+    const missingMenuIdExists = menu.some(item => {
+        console.log({missingMenuId});
+        if(item.menuId === missingMenuId) {
+            missingMenuId++;
+            return false;
+        } else {
+            console.log(`missingMenuId is : ${missingMenuId}`);
+            return true;
+        }
+    });
+    
+    // arr.some()の使い方を忘れないために一応ログしておく
+    if(missingMenuIdExists) {
+        console.log('missingMenuId exists');
+    } else {
+        console.log('missingMenuId does not exist');
+    }
+    return missingMenuId;
+}
+
+
 /* microCMSにメニューを追加 */
 async function postMenu(req, res) {
     try {
         const url = endPoint;
+        const category = req.body.category;
+        const num = await countMenu(category);
+
+        console.log({num});
+        /* カテゴリに応じてmenuIdを設定 */
+        const menuId = await getMissingMenuId(req.body.category);
+        console.log({menuId});
         
         // リクエストボディの設定
         const payload = {
+            menuId: menuId,
             name: req.body.name,
             category: req.body.category,
             price: req.body.price,
@@ -77,6 +131,18 @@ async function deleteMenu(req, res) {
         res.json(e);
     }
 }
+
+/* カテゴリIDの取得 */
+function getCategoryId(category) {
+    const categoryObj = {
+        drink: 1,
+        food: 2,
+        plan: 3
+    };
+    return categoryObj[category];
+}
+
+
 module.exports = router;
 
 
