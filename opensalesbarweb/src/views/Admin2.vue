@@ -11,6 +11,25 @@
           <option>plan</option>
         </select>
       </div>
+      <div class="subcategory">サブカテゴリ
+        <select v-model="menuInfo.subcategory">
+          <option>special</option>
+          <option>appetizer</option>
+          <option>soup</option>
+          <option>main</option>
+          <option>pasta</option>
+          <option>dessert</option>
+          <option>cocktails</option>
+          <option>whisky</option>
+          <option>brandy</option>
+          <option>spirits</option>
+          <option>wine</option>
+          <option>beer</option>
+          <option>champagne</option>
+          <option>softdrink</option>
+          <option>regular</option>
+        </select>
+      </div>
       <div class="price">価格<input type="text" v-model="menuInfo.price"></div>
       <div class="description">説明<textarea v-model="menuInfo.description"></textarea></div>
       <div class="picture">
@@ -31,6 +50,7 @@
           <li class="col menuId">メニューID</li>
           <li class="col picture">画像</li>
           <li class="col category">カテゴリ</li>
+          <li class="col subcategory">サブカテゴリ</li>
           <li class="col name">名前</li>
           <li class="col price">価格</li>
           <li class="col description">説明</li>
@@ -43,6 +63,7 @@
             <li class="col menuId">{{item.menuId}}</li>
             <li class="col picture"><img v-bind:src="item.picture_url"></li>
             <li class="col category">{{item.category}}</li>
+            <li class="col subcategory">{{item.subcategory[0]}}</li>
             <li class="col name">{{item.name}}</li>
             <li class="col price">{{item.price}}</li>
             <li class="col description">{{item.description}}</li>
@@ -74,6 +95,7 @@ export default {
       menuInfo: {
         name: '',
         category: 'food',
+        subcategory: 'special',
         price: 0,
         description: '',
         pictureUrl: '',
@@ -157,6 +179,7 @@ export default {
       const payload = {
         name: this.menuInfo.name,
         category: this.menuInfo.category,
+        subcategory: this.menuInfo.subcategory[0],
         price: this.menuInfo.price,
         description: this.menuInfo.description,
         picture_url: "https://ddfjcsntx8hpk.cloudfront.net/" + file.name,
