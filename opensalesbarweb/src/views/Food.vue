@@ -5,11 +5,12 @@
     <section class="container">
       <main id="contents">  
         <div class="figure">
+
           <section>
             <h2 id="_special">Special</h2>
             <div class="imglist">
               <template v-for="content in menu" :key="content.id"> 
-                <div class="content" if="content.subcategory[0] === 'special'">
+                <div class="content" v-if="content.subcategory[0] === 'special'">
                   <h3 class="name">{{ content.name }}</h3>
                   <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>
@@ -20,11 +21,12 @@
               </template>
             </div>
           </section>
+
           <section>
             <h2 id="_appetizer">Appetizer</h2>
             <div class="imglist">
               <template v-for="content in menu" :key="content.id"> 
-                <div class="content" if="content.subcategory[0] === 'appetizer'">
+                <div class="content" v-if="content.subcategory[0] === 'appetizer'">
                   <h3 class="name">{{ content.name }}</h3>
                   <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>
@@ -35,6 +37,71 @@
               </template>
             </div>
           </section>
+
+          <section>
+            <h2 id="_soup">Soup</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'soup'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_main">Main</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'main'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_pasta">Pasta</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'pasta'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_dessert">Dessert</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'dessert'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
         </div><!--.figure-->
       </main>
       
@@ -84,10 +151,9 @@ export default {
 
   methods: {
     /* メニュー取得 */
-    getMenu(category, subcategory) {
+    getMenu(category) {
       const payload = {
         category: category,
-        subcategory: subcategory,
       };
       
 

@@ -5,11 +5,27 @@
     <section class="container">
       <main id="contents">  
         <div class="figure">
+
           <section>
             <h2 id="_special">Special</h2>
             <div class="imglist">
               <template v-for="content in menu" :key="content.id"> 
-                <div class="content">
+                <div class="content" v-if="content.subcategory[0] === 'special'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_regular">Regular</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'regular'">
                   <h3 class="name">{{ content.name }}</h3>
                   <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>

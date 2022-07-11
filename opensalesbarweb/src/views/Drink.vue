@@ -5,11 +5,117 @@
     <section class="container">
       <main id="contents">  
         <div class="figure">
+          
           <section>
-            <h2 id="_cocktails">CocktailsFromS3</h2>
+            <h2 id="_cocktails">Cocktails</h2>
             <div class="imglist">
               <template v-for="content in menu" :key="content.id"> 
-                <div class="content">
+                <div class="content" v-if="content.subcategory[0] === 'cocktails'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_whisky">Whisky</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'whisky'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_brandy">Brandy</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'brandy'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_spirits">Spirits</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'spirits'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_wine">Wine</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'wine'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_beer">Beer</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'beer'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_champagne">Champagne</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'champagne'">
+                  <h3 class="name">{{ content.name }}</h3>
+                  <img v-bind:src="content.picture_url">
+                  <div class="description">{{ content.description }}</div>
+                  <p><span class="price">￥{{ content.price }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                </div>
+              </template>
+            </div>
+          </section>
+
+          <section>
+            <h2 id="_softdrink">Soft drink</h2>
+            <div class="imglist">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" v-if="content.subcategory[0] === 'softdrink'">
                   <h3 class="name">{{ content.name }}</h3>
                   <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>
