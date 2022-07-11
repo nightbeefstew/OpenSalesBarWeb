@@ -83,7 +83,6 @@
 <script>
 //import { ref } from '@vue/runtime-core'
 //import axios from 'axios'
-
 export default {
   name: 'admin2',
   setup() {

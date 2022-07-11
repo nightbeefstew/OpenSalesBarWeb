@@ -56,7 +56,7 @@ app.get("/api/envTest", (req, res) => {
 
 // var AWS = require("aws-sdk");
 
-app.get('/api/getSignedUrl', (req, res) => {
+/*app.get('/api/getSignedUrl', (req, res) => {
     const s3 = new AWS.S3({signatureVersion: 'v4', region: 'ap-northeast-1'});
     const params = {
         Bucket: process.env.AWS_S3_BUCKET,
@@ -131,5 +131,5 @@ app.get('/api/getSignedUrl', (req, res) => {
 
 // ポート3000番でlistenする
 //https.createServer(sslOptions, app).listen(3000);
-
+*/
 app.listen(3000);

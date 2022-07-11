@@ -90,27 +90,30 @@ async function getMissingMenuId(category) {
 /* microCMSにメニューを追加 */
 async function postMenu(req, res) {
     try {
+        console.log(req.body);
         const url = endPoint;
         const category = req.body.category;
         const num = await countMenu(category);
+        console.log(req.body.name);
 
         console.log({num});
         /* カテゴリに応じてmenuIdを設定 */
         const menuId = await getMissingMenuId(req.body.category);
         console.log({menuId});
-        
+        console.log(req.body.name);
         // リクエストボディの設定
         const payload = {
             menuId: menuId,
             name: req.body.name,
             category: req.body.category,
+            subcategory: req.body.subcategory,
             price: req.body.price,
             description: req.body.description,
             picture_url: req.body.picture_url,
             file_name: req.body.file_name
         };
         config.headers['Content-Type'] = 'application/json';
-
+        console.log(payload);
         const result = await axios.post(url, payload, config);
         res.json(result.data);
     } catch(e) {
