@@ -8,63 +8,33 @@
           <section>
             <h2 id="_special">Special</h2>
             <div class="imglist">
-              <template v-for="content in contents" :key="content.id"> 
-                <div class="content" v-if="content.category[0] === 'special'">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" if="content.subcategory[0] === 'special'">
                   <h3 class="name">{{ content.name }}</h3>
-                  <img v-bind:src=content.image.url>
+                  <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>
                   <p><span class="price">￥{{ content.price }}</span></p>
-                  <p><span class="category">{{ content.category[0] }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
                 </div>
               </template>
             </div>
           </section>
-
           <section>
             <h2 id="_appetizer">Appetizer</h2>
             <div class="imglist">
-              <template v-for="content in contents" :key="content.id"> 
-                <div class="content" v-if="content.category[0] === 'appetizer'">
+              <template v-for="content in menu" :key="content.id"> 
+                <div class="content" if="content.subcategory[0] === 'appetizer'">
                   <h3 class="name">{{ content.name }}</h3>
-                  <img v-bind:src=content.image.url>
+                  <img v-bind:src="content.picture_url">
                   <div class="description">{{ content.description }}</div>
                   <p><span class="price">￥{{ content.price }}</span></p>
-                  <p><span class="category">{{ content.category[0] }}</span></p>
+                  <p><span class="category">{{ content.category }}</span></p>
+                  <p><span class="subcategory">{{ content.subcategory[0] }}</span></p>
                 </div>
               </template>
             </div>
           </section>
-
-          <section>
-            <h2 id="_soup">Soup</h2>
-            <div class="imglist">
-              <template v-for="content in contents" :key="content.id"> 
-                <div class="content" v-if="content.category[0] === 'soup'">
-                  <h3 class="name">{{ content.name }}</h3>
-                  <img v-bind:src=content.image.url>
-                  <div class="description">{{ content.description }}</div>
-                  <p><span class="price">￥{{ content.price }}</span></p>
-                  <p><span class="category">{{ content.category[0] }}</span></p>
-                </div>
-              </template>
-            </div>
-          </section>
-
-          <section>
-            <h2 id="_dessert">Dessert</h2>
-            <div class="imglist">
-              <template v-for="content in contents" :key="content.id"> 
-                <div class="content" v-if="content.category[0] === 'dessert'">
-                  <h3 class="name">{{ content.name }}</h3>
-                  <img v-bind:src=content.image.url>
-                  <div class="description">{{ content.description }}</div>
-                  <p><span class="price">￥{{ content.price }}</span></p>
-                  <p><span class="category">{{ content.category[0] }}</span></p>
-                </div>
-              </template>
-            </div>
-          </section>
-
         </div><!--.figure-->
       </main>
       
@@ -96,61 +66,40 @@
 
 
 <script>
-import { onMounted, ref } from '@vue/runtime-core'
-import axios from 'axios'
-// @ is an alias to /src
-
 
 export default {
-  name: 'blog',
-
-    setup() {
-      const contents = ref([]);
-      const loaded = ref(false);
-      const loadingMsg = ref("Loading...");
-
-      //async無名関数にしないとダメ
-      onMounted(async () => {
-        console.log('App.vue is mounted!');
-
-        //axiosを使ったgetリクエスト
-        await axios
-          .get(
-            "https://osbtest.microcms.io/api/v1/food",
-            //headers: リクエストヘッダー
-            {
-              headers: {'X-MICROCMS-API-KEY': process.env.VUE_APP_CMS_API_KEY}
-              
-            })
-          //thenはリクエストが成功or失敗したら動く
-          .then(
-            (response) => {
-              console.log(response);
-              contents.value = response.data.contents
-              loaded.value = true;
-              loadingMsg.value ="Loaded!";
-              console.log(loaded);
-            })
-          .catch(
-            (error) => { console.log(error) });
-
-
-          //catchはリクエストが失敗したら動く
-          //.catch(console.log(err))
-      });
-
-    /*  console.log(`API KEY: ${process.env.VUE_APP_CMS_API_KEY}`); */
-
-      return {
-        contents,
-        loaded,
-        loadingMsg,
-      }
-    },
-
-    components: {
-      
+  name: 'food',
+  
+  data() {
+    return {
+      menu: [],
+      firstMenuName: null,
     }
+  },
+
+  mounted() {
+    this.getMenu('food');
+
+  },
+
+  methods: {
+    /* メニュー取得 */
+    getMenu(category, subcategory) {
+      const payload = {
+        category: category,
+        subcategory: subcategory,
+      };
+      
+
+      this.$store.dispatch('getMenu', payload)
+        .then((res) => {
+          this.menu = res.contents;
+          console.log(res);
+        });
+    }
+  }
+
+
   
 }
 
@@ -261,5 +210,6 @@ aside table td {
     display: none;
   }
 }
+
 
 </style>
