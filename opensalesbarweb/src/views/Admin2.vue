@@ -179,7 +179,7 @@ export default {
       const payload = {
         name: this.menuInfo.name,
         category: this.menuInfo.category,
-        subcategory: this.menuInfo.subcategory,
+        subcategory: [this.menuInfo.subcategory],
         price: this.menuInfo.price,
         description: this.menuInfo.description,
         picture_url: "https://ddfjcsntx8hpk.cloudfront.net/" + file.name,
